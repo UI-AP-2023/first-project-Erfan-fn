@@ -1,20 +1,20 @@
-package model;
+package model.Roles;
 
 public abstract class UserModel {
     private final String userName;
     private String email;
     private String phoneNumber;
     private String password;
-    public UserModel(String userName,String email,String phoneNumber,String password)
+    public UserModel(String userName,String password,String phoneNumber,String email)
     {
         this.userName=userName;
-        this.email=email;
-        this.phoneNumber=phoneNumber;
         this.password=password;
+        this.phoneNumber=phoneNumber;
+        this.email=email;
     }
     public UserModel(String userName,String password)
     {
-     this(userName,null,null,password);
+     this(userName,password,null,null);
     }
     public String getEmail() {
         return this.email;
@@ -40,4 +40,5 @@ public abstract class UserModel {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

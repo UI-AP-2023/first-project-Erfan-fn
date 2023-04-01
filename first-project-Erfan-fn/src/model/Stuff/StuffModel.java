@@ -10,7 +10,7 @@ public abstract class  StuffModel {
     private double stuffPrice;
     private int stuffInventory;
     private double averageScore;
-    private StuffKindModel stuffKindModel;
+    private final StuffKindModel stuffKindModel;
     private ArrayList<CommentModel>stuffComments;
     StuffModel(String stuffName,double stuffPrice,int stuffInventory,StuffKindModel stuffKindModel)
     {   stuffCode++;
@@ -44,14 +44,6 @@ public abstract class  StuffModel {
         return stuffName;
     }
 
-    public StuffKindModel getStuffKindModel() {
-        return stuffKindModel;
-    }
-
-    public void setAverageScore(double averageScore) {
-        this.averageScore = averageScore;
-    }
-
     public void setStuffComments(ArrayList<CommentModel> stuffComments) {
         this.stuffComments = stuffComments;
     }
@@ -68,7 +60,21 @@ public abstract class  StuffModel {
         this.stuffName = stuffName;
     }
 
-    public static void setStuffCode(int stuffCode) {
-        StuffModel.stuffCode = stuffCode;
+    public void setAverageScore(double averageScore) {
+        this.averageScore = averageScore;
     }
+
+    @Override
+    public String toString() {
+        return
+                "stuffName='" + stuffName + '\'' +
+                ", stuffPrice=" + stuffPrice +
+                        ", stuffCode=" + stuffCode +
+                ", stuffInventory=" + stuffInventory +
+                ", averageScore=" + averageScore +
+                ", stuffKind=" + stuffKindModel+
+                ", stuffComments=" + stuffComments
+                ;
+    }
+
 }

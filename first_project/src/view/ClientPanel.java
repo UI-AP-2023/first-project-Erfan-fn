@@ -303,7 +303,7 @@ public class ClientPanel {
             if (clientModel.getUserName().equals(userName)) {
                 for (StuffModel stuffModel : clientModel.getCart()) {
                     System.out.println(stuffModel.toString());
-                }
+                }}
                 System.out.println("Do you wanna to ultimate your purchase?\n 1_yes  2_No");
                 int orderNumber = sc.nextInt();
                 sc.nextLine();
@@ -316,7 +316,7 @@ public class ClientPanel {
                     return "back to Menu";
                 }
             }
-        }
+
         return "back to Menu";
     }
 

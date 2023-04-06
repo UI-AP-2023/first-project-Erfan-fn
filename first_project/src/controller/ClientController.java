@@ -234,8 +234,8 @@ public class ClientController {
             if(clientModel.getUserName().equals(userName))
             {
                 for(StuffModel stuffModel: clientModel.getCart())
-                {
-                    sumOfStuffPrices+=stuffModel.getStuffPrice();
+                {   if (stuffModel.getStuffInventory()>0)
+                {sumOfStuffPrices+=stuffModel.getStuffPrice();}
                 }
                 if (clientModel.getAccountCredit()>=sumOfStuffPrices)
                 {    PurchaseInvoiceModel purchaseInvoiceModel=new PurchaseInvoiceModel("1402/01/15",sumOfStuffPrices);
@@ -247,11 +247,6 @@ public class ClientController {
                 }
                     clientModel.setAccountCredit(clientModel.getAccountCredit()-sumOfStuffPrices);
                     clientModel.getClientInvoicesList().add(purchaseInvoiceModel);
-                    for(StuffModel stuffModel1: purchaseInvoiceModel.getPurchasedStuffsList())
-                    {
-                       clientModel.getCart().remove(stuffModel1);
-
-                    }
 
 
                 return "purchase was successful";}

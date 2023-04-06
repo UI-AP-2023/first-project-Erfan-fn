@@ -9,7 +9,7 @@ public class ClientModel extends UserModel {
     private double accountCredit;
     private ArrayList<StuffModel>cart;
     private ArrayList<PurchaseInvoiceModel>clientInvoicesList;
-    ClientModel(String userName,String email,String phoneNumber,String password)
+    public ClientModel(String userName,String email,String phoneNumber,String password)
     {
         super(userName, password, phoneNumber, email);
         cart=new ArrayList<>();
@@ -30,5 +30,12 @@ public class ClientModel extends UserModel {
 
     public void setAccountCredit(double accountCredit) {
         this.accountCredit = accountCredit;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString()+
+                " accountCredit=" + accountCredit
+                ;
     }
 }

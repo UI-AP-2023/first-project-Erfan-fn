@@ -41,4 +41,13 @@ public abstract class UserModel {
         this.password = password;
     }
 
+    @Override
+    public String toString() {
+        return
+                "userName='" + userName + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", password='" + password + '\''
+                ;
+    }
 }

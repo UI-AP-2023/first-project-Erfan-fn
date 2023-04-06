@@ -7,7 +7,7 @@ public class ScoreModel {
   private ClientModel clientModel;
   private int scoreNumber;
   private StuffModel stuffModel;
-  ScoreModel(ClientModel clientModel,int scoreNumber,StuffModel stuffModel)
+  public ScoreModel(ClientModel clientModel,int scoreNumber,StuffModel stuffModel)
   {
     this.clientModel=clientModel;
     this.scoreNumber=scoreNumber;

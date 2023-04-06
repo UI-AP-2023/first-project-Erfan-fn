@@ -20,7 +20,7 @@ public class CarModel extends VehicleModel{
 
     @Override
     public String toString() {
-        return super.toString()+" Stuff tupe:Car " +
+        return super.toString()+" Stuff type:Car " +
                 "engineCapacity=" + engineCapacity +
                 ", isAutomatic=" + isAutomatic
                 ;

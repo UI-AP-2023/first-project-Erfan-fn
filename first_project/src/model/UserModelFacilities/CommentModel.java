@@ -8,7 +8,7 @@ public class CommentModel {
     private String commentText;
     private CommentStatusModel commentStatusModel;
     private boolean buy;
-    CommentModel(int StuffID,String commentText,ClientModel clientModel)
+    public CommentModel(int StuffID,String commentText,ClientModel clientModel)
     {
         this.StuffID=StuffID;
         this.commentText=commentText;
@@ -48,4 +48,14 @@ public class CommentModel {
         this.commentText = commentText;
     }
 
+    @Override
+    public String toString() {
+        return
+                "clientModel: " + clientModel.getUserName() +
+                " StuffID: " + StuffID +
+                " commentText: " + commentText +
+                " commentStatusModel: " + commentStatusModel +
+                " buy: " + buy
+                ;
+    }
 }

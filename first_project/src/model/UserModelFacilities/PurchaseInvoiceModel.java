@@ -9,12 +9,12 @@ public class PurchaseInvoiceModel {
     private double paidPrice;
     private ArrayList<StuffModel>purchasedStuffsList;
 
-    PurchaseInvoiceModel(String purchaseDate,double paidPrice,ArrayList<StuffModel>purchasedStuffsList)
+    public PurchaseInvoiceModel(String purchaseDate,double paidPrice)
     {
         purchaseInvoiceId++;
         this.paidPrice=paidPrice;
         this.purchaseDate=purchaseDate;
-        this.purchasedStuffsList=purchasedStuffsList;
+        this.purchasedStuffsList=new ArrayList<>();
     }
 
     public ArrayList<StuffModel> getPurchasedStuffsList() {
@@ -43,5 +43,13 @@ public class PurchaseInvoiceModel {
 
     public void setPurchasedStuffsList(ArrayList<StuffModel> purchasedStuffsList) {
         this.purchasedStuffsList = purchasedStuffsList;
+    }
+
+    @Override
+    public String toString() {
+        return
+                "purchaseDate= " + purchaseDate + '\'' +
+                " paidPrice= " + paidPrice +
+                '}';
     }
 }

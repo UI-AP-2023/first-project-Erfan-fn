@@ -3,7 +3,7 @@ package model.Stuff;
 public class FoodModel extends StuffModel {
     private final String productionDate;
     private final String expirationDate;
-    FoodModel(String stuffName, double stuffPrice, int stuffInventory, StuffKindModel stuffKindModel, String productionDate, String expirationDate)
+    public FoodModel(String stuffName, double stuffPrice, int stuffInventory, String productionDate, String expirationDate)
     {
         super(stuffName, stuffPrice, stuffInventory, StuffKindModel.FOOD);
         this.productionDate=productionDate;

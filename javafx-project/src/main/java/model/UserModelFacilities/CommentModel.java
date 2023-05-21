@@ -44,6 +44,7 @@ public class CommentModel {
         this.commentStatusModel = commentStatusModel;
     }
 
+
     public void setCommentText(String commentText) {
         this.commentText = commentText;
     }

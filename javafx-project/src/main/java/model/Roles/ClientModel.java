@@ -1,7 +1,7 @@
 package model.Roles;
 
-import model.UserModelFacilities.PurchaseInvoiceModel;
 import model.Stuff.StuffModel;
+import model.UserModelFacilities.PurchaseInvoiceModel;
 
 import java.util.ArrayList;
 

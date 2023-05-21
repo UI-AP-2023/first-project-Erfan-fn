@@ -310,6 +310,13 @@ public class ClientPanel {
                 if (orderNumber == 1) {
                     String resultString;
                     resultString = clientController.ultimatePurchase(userName);
+                    for(ClientModel clientModel1:AdminController.getClientList())
+                    {
+                        if (clientModel1.getUserName().equals(userName))
+                        {
+                            clientModel1.getCart().clear();
+                        }
+                    }
                     return resultString;
                 }
                 if (orderNumber == 2) {

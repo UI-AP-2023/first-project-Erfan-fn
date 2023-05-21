@@ -1,6 +1,7 @@
 package model.UserModelFacilities;
 
 import model.Stuff.StuffModel;
+
 import java.util.ArrayList;
 
 public class PurchaseInvoiceModel {

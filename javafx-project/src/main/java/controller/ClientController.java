@@ -1,17 +1,22 @@
 package controller;
 
+import Exceptions.*;
 import model.Roles.AdminModel;
 import model.Roles.ClientModel;
 import model.Stuff.StuffModel;
 import model.UserModelFacilities.CommentModel;
+import model.UserModelFacilities.DiscountModel;
 import model.UserModelFacilities.PurchaseInvoiceModel;
 import model.UserModelFacilities.ScoreModel;
+import view.ClientPanel;
 
+import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ClientController {
     public String signUp(String userName, String email, String phoneNumber, String password) {
+
         Pattern pattern = Pattern.compile("^\\D{5}(\\d{3})+(@gmail|@yahoo)\\.com$");
         Matcher matcher = pattern.matcher(email);
         Pattern pattern1 = Pattern.compile("^09\\d{9}$");
@@ -24,6 +29,8 @@ public class ClientController {
         Matcher matcher20 = pattern20.matcher(password);
         Matcher matcher21 = pattern21.matcher(password);
         Matcher matcher22 = pattern22.matcher(password);
+
+
         if (matcher.find() == true && matcher1.find() == true && matcher2.find() == true && matcher20.find() == true && matcher21.find() == true && matcher22.find() == true) {
             for (ClientModel clientModel : AdminController.getClientList()) {
                 if (userName.equals(clientModel.getUserName())) {
@@ -44,6 +51,14 @@ public class ClientController {
                     " " + email + " " + phoneNumber + " " + password);
             return "SignUpRequest: " + userName +
                     " " + email + " " + phoneNumber + " " + password;
+        }
+        else if (!matcher.find())
+        {
+            throw new InvalidEmail();
+        }
+        if (!matcher1.find())
+        {
+            throw new InvalidPhoneNumber();
         }
 
         return "Invalid information";
@@ -67,6 +82,8 @@ public class ClientController {
         Matcher matcher20 = pattern20.matcher(password);
         Matcher matcher21 = pattern21.matcher(password);
         Matcher matcher22 = pattern22.matcher(password);
+
+
         if (matcher2.find() && matcher20.find() && matcher21.find() && matcher22.find()) {
             for (ClientModel clientModel:AdminController.getClientList())
             {
@@ -93,6 +110,7 @@ public class ClientController {
                 }
             }
         }
+        else throw new InvalidEmail();
         return 0;
     }
 
@@ -109,6 +127,7 @@ public class ClientController {
                 }
             }
         }
+        else throw new InvalidPhoneNumber();
         return 0;
     }
 
@@ -144,6 +163,7 @@ public class ClientController {
         Matcher matcher1 = pattern1.matcher(cvv2);
         Pattern pattern2 = Pattern.compile("^\\d{7}$");
         Matcher matcher2 = pattern2.matcher(password);
+
         for (ClientModel clientModel : AdminController.getClientList()) {
             if (clientModel.getUserName().equals(userName)) {
                 if (matcher.find() && matcher1.find() && matcher2.find()) {
@@ -230,8 +250,8 @@ public class ClientController {
          }
      }
     return "comment request failed";}
-    public String ultimatePurchase(String userName)
-    {  double sumOfStuffPrices=0;
+    public String ultimatePurchase(String userName,int order) throws InsufficientBalance, InsufficientInventory, InvalidDiscount {
+        double sumOfStuffPrices=0;
         for (ClientModel clientModel:AdminController.getClientList())
         {
             if(clientModel.getUserName().equals(userName))
@@ -239,7 +259,44 @@ public class ClientController {
                 for(StuffModel stuffModel: clientModel.getCart())
                 {   if (stuffModel.getStuffInventory()>0)
                 {sumOfStuffPrices+=stuffModel.getStuffPrice();}
+                    else
+                {
+
+                        throw new InsufficientInventory();
+
                 }
+                }
+                do {
+                    if (order==1)
+                    {
+                        ClientPanel clientPanel=new ClientPanel();
+                        clientPanel.showClientDiscounts(userName);
+                        try {
+                            DiscountModel discountModel =clientPanel.enterClientDiscounts(userName);
+                            if (discountModel.getDiscountExpiration().isBefore(LocalDate.now()) || discountModel.getDiscountCapacity()==0)
+                            {
+                                throw new InvalidDiscount();
+                            }
+                            else {
+
+                                double sumOfStuffPrices1 = sumOfStuffPrices - (sumOfStuffPrices*(discountModel.getDiscountPercent()/100));
+                                discountModel.setDiscountCapacity(discountModel.getDiscountCapacity()-1);
+                                int countinue=clientPanel.effectOfDiscount(sumOfStuffPrices,sumOfStuffPrices1);
+                                sumOfStuffPrices=sumOfStuffPrices1;
+                                if (countinue==2)
+                                {break;}
+                            }
+
+                        }
+                        catch (NullPointerException e)
+                        {
+
+                        }
+
+                    }
+                }while (true);
+
+
                 if (clientModel.getAccountCredit()>=sumOfStuffPrices)
                 {    PurchaseInvoiceModel purchaseInvoiceModel=new PurchaseInvoiceModel("1402/01/15",sumOfStuffPrices);
                     for(StuffModel stuffModel: clientModel.getCart())
@@ -253,6 +310,12 @@ public class ClientController {
 
 
                 return "purchase was successful";}
+                else
+                {
+
+                        throw new InsufficientBalance();
+
+                }
             }
         }
     return "purchase wasn't successful";}

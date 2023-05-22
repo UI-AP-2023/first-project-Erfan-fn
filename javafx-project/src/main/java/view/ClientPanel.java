@@ -1,13 +1,20 @@
 package view;
 
+import Exceptions.InsufficientBalance;
+import Exceptions.InsufficientInventory;
+import Exceptions.InvalidDiscount;
+import Exceptions.InvalidInput;
 import controller.AdminController;
 import controller.ClientController;
 import model.Roles.AdminModel;
 import model.Roles.ClientModel;
 import model.Stuff.*;
 import model.UserModelFacilities.CommentModel;
+import model.UserModelFacilities.DiscountModel;
 import model.UserModelFacilities.PurchaseInvoiceModel;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ClientPanel {
@@ -24,11 +31,18 @@ public class ClientPanel {
         String phoneNumber = sc.nextLine();
         System.out.println("enter your password:");
         String password = sc.nextLine();
-        String result = clientController.signUp(userName, email, phoneNumber, password);
-        System.out.println(result);
-        if (result.contains("Sign")) {
-            return 1;
+        try {
+            String result = clientController.signUp(userName, email, phoneNumber, password);
+            System.out.println(result);
+            if (result.contains("Sign")) {
+                return 1;
+            }
         }
+        catch (InvalidInput e)
+        {
+            System.out.println(e.getMessage());
+        }
+
         return 0;
     }
 
@@ -115,7 +129,7 @@ public class ClientPanel {
             System.out.println(stuffModel.toString());
         }
         while (true) {
-            System.out.println("1_go to a stuff page with id code \n 2_back to clientMenu \n 3_filter by \n 4_search \n 5_show all stuff");
+            System.out.println("1_go to a stuff page with id code \n 2_back to clientMenu \n 3_filter by \n 4_search \n 5_show all stuff \n 6_show all stuff regularized");
             int decision = sc.nextInt();
             sc.nextLine();
 
@@ -139,13 +153,21 @@ public class ClientPanel {
                     }
                 }
             }
+
             if (decision==5)
             {
                 for (StuffModel stuffModel : AdminModel.getAdminModel().getStuffList()) {
                     System.out.println(stuffModel.toString());
                 }
             }
-
+            if (decision==6)
+            {
+                ArrayList<StuffModel>temp=new ArrayList<>(AdminModel.getAdminModel().getStuffList());
+                temp.sort(StuffModel::compareTo);
+                for (StuffModel stuffModel : temp) {
+                    System.out.println(stuffModel.toString());
+                }
+            }
             if (decision == 2) {
                 return 0;
             }
@@ -297,7 +319,7 @@ public class ClientPanel {
         }
 
     }
-
+    //--------------------------------------------------------------------------------------------------
     public String purchaseOperation(String userName) {
         for (ClientModel clientModel : AdminController.getClientList()) {
             if (clientModel.getUserName().equals(userName)) {
@@ -308,8 +330,25 @@ public class ClientPanel {
                 int orderNumber = sc.nextInt();
                 sc.nextLine();
                 if (orderNumber == 1) {
-                    String resultString;
-                    resultString = clientController.ultimatePurchase(userName);
+                    System.out.println("do you want to use discount?by number    1_yes  2_No");
+                    String []resultString = new String[0];
+                    try {
+                        int order=sc.nextInt();
+
+                        try {
+                            resultString[0] = clientController.ultimatePurchase(userName,order);
+                        } catch (InvalidDiscount e) {
+                            System.out.println(e.getMessage());
+                        }
+                    } catch (InsufficientBalance e) {
+                        System.out.println(e.getMessage());
+                    } catch (InsufficientInventory e) {
+                        System.out.println(e.getMessage());
+                    }
+                    catch (ArrayIndexOutOfBoundsException  e)
+                    {
+                        System.out.println(e.getMessage());
+                    }
                     for(ClientModel clientModel1:AdminController.getClientList())
                     {
                         if (clientModel1.getUserName().equals(userName))
@@ -317,7 +356,7 @@ public class ClientPanel {
                             clientModel1.getCart().clear();
                         }
                     }
-                    return resultString;
+                    return resultString[0];
                 }
                 if (orderNumber == 2) {
                     return "back to Menu";
@@ -326,7 +365,7 @@ public class ClientPanel {
 
         return "back to Menu";
     }
-
+    //--------------------------------------------------------------------------------------------------
     public String chargeAccount(String userName) {
         System.out.println("enter the amount of chargeRequest:");
         int amount = sc.nextInt();
@@ -344,6 +383,7 @@ public class ClientPanel {
         }
         return "An error acquired";
     }
+    //--------------------------------------------------------------------------------------------------
     public void addStuffToCart(String userName)
     {
         System.out.println("enter stuffId:");
@@ -359,7 +399,7 @@ public class ClientPanel {
         {
             System.out.println(" stuff not added to cart");
         }
-
+        //--------------------------------------------------------------------------------------------------
     }
     public void removeStuffFromCart(String userName)
     {
@@ -376,6 +416,7 @@ public class ClientPanel {
         }
 
     }
+    //--------------------------------------------------------------------------------------------------
     public void rateToStuff(String userName)
     {
         System.out.println("enter Id of stuff that you want to rate it:(only if you purchase that stuff)");
@@ -394,7 +435,7 @@ public class ClientPanel {
         }
 
     }
-
+    //--------------------------------------------------------------------------------------------------
     public  void writeComment(String userName)
     {
         System.out.println("enter the stuff Id you want to write a comment about:");
@@ -405,6 +446,7 @@ public class ClientPanel {
         String resultCheck =clientController.writeComment(userName,stuffIdForComment,commentText);
         System.out.println(resultCheck);
     }
+    //--------------------------------------------------------------------------------------------------
     public void showBuyHistory(String userName)
     {
         for (ClientModel clientModel:AdminController.getClientList())
@@ -421,6 +463,58 @@ public class ClientPanel {
                 }
             }
         }
+    }
+    //---------------------------------------------------------------------------
+    public void showClientDiscounts(String userName)
+    {
+        for (ClientModel clientModel:AdminController.getClientList())
+        {
+            if (clientModel.getUserName().equals(userName))
+            {
+                System.out.print("Discounts:");
+                for (DiscountModel discountModel:clientModel.getClientDiscounts())
+                {
+                    System.out.print("\n"+discountModel.toString());
+                }
+            }
+        }
+    }
+    //--------------------------------------------------------------------------------------------------
+    public DiscountModel enterClientDiscounts(String userName)
+    {
+        System.out.println("    Hello if you have discount Code,Then you can use it!!" +'\n'+ "enter 1 to use discount and 2 for ignoring");
+        int order=sc.nextInt();
+        sc.nextLine();
+        if (order==1)
+        {
+            System.out.println("enter discount code");
+            String code= sc.nextLine();
+            for (ClientModel clientModel:AdminController.getClientList()) {
+
+                if (clientModel.getUserName().equals(userName))
+                {
+                 for (DiscountModel discountModel:clientModel.getClientDiscounts())
+                 {
+                     if (discountModel.getDiscountCode().equals(code))
+                     {
+                        return discountModel;
+                     }
+                 }
+                    try {
+                        throw new InvalidDiscount();
+                    } catch (InvalidDiscount e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
+            }
+        }
+    return null;}
+    public int effectOfDiscount(double prePrice,double currentPrice)
+    {
+        System.out.println("Price before discount: " +prePrice+" Price after discount: "+currentPrice);
+        System.out.println("do you want to still use discount or not?  1_yes  2_no");
+        int order=sc.nextInt();
+        return order;
     }
 
 

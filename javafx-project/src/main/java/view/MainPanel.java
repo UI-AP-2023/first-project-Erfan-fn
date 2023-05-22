@@ -24,10 +24,11 @@ public class MainPanel {
                 do {
                     result = clientPanel.login();
                 } while (result.equals("failed to login"));
+                            //----------------------------------------------------------------------------------------------------------
                 if (result != "admin") {
                     while (true) {
                         System.out.println(result + " welcome to your panel here are some efforts that you can do" + "\n 1_see your personal information and edit" +
-                                "\n 2_see shop stuffs" + "\n 3_see stuffs/your cart/purchase operation/rate to your cart Stuffs \n 4_charge account \n 5_see buy history \n 6_back to main menu ");
+                                "\n 2_see shop stuffs" + "\n 3_see stuffs/your cart/purchase operation/rate to your cart Stuffs/yourDiscounts \n 4_charge account \n 5_see buy history \n 6_back to main menu ");
                         int orderNum2 = sc.nextInt();
                         sc.nextLine();
                         if (orderNum2 == 1) {
@@ -40,8 +41,10 @@ public class MainPanel {
                         if (orderNum2 == 3) {
                             int resultNumber;
                             resultNumber = clientPanel.seeShopStuff();
+                            //----------------------------------------------------------------------------------------------------------
                             if (resultNumber == 1) {
-                                System.out.println("1_addStuff to cart  2_removeStuff from cart  3_ultimatePurchase 4_rate to your cart Stuffs  5_write a comment  6_back");
+                                System.out.println("1_addStuff to cart  2_removeStuff from cart  3_ultimatePurchase 4_rate to your cart Stuffs  5_write a comment  6_see your discounts  7_back");
+
                                 int resultNumber2=sc.nextInt();
                                 if (resultNumber2==1){
                                     clientPanel.addStuffToCart(result);}
@@ -57,6 +60,15 @@ public class MainPanel {
                                 {
                                  clientPanel.writeComment(result);
                                 }
+                                if (resultNumber2==6)
+                                {
+                                    clientPanel.showClientDiscounts(result);
+                                }
+                                if (resultNumber2==7)
+                                {
+                                    break;
+                                }
+
                             }
                         }
                         if (orderNum2 == 4) {
@@ -66,6 +78,7 @@ public class MainPanel {
                         if (orderNum2 == 5) {
                          clientPanel.showBuyHistory(result);
                         }
+
                         if (orderNum2 == 6) {
                          break;
                         }

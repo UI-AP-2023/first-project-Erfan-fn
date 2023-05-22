@@ -1,32 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e43c1c0-72ea-4abf-a4c8-f38d9fc64ad3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/first-project-Erfan-fn/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/first-project-Erfan-fn/src/model/Roles/AdminModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/first-project-Erfan-fn/src/model/Roles/ClientModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/first-project-Erfan-fn/src/model/Stuff/BicycleKindModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/first-project-Erfan-fn/src/model/Stuff/BicycleModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/first-project-Erfan-fn/src/model/Stuff/CarModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/first-project-Erfan-fn/src/model/Stuff/DigitalStuffModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/first-project-Erfan-fn/src/model/Stuff/FlashMemoryModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/first-project-Erfan-fn/src/model/Stuff/FoodModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/first-project-Erfan-fn/src/model/Stuff/NoteBookModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/first-project-Erfan-fn/src/model/Stuff/PenModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/first-project-Erfan-fn/src/model/Stuff/PencilKindModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/first-project-Erfan-fn/src/model/Stuff/PencilModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/first-project-Erfan-fn/src/model/Stuff/PersonalComputerModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/first-project-Erfan-fn/src/model/Stuff/SsdModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/first-project-Erfan-fn/src/model/Stuff/StationeryModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/first-project-Erfan-fn/src/model/Stuff/StorageEquipmentModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/first-project-Erfan-fn/src/model/Stuff/VehicleModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/first-project-Erfan-fn/src/model/UserModelFacilities/CommentModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/first-project-Erfan-fn/src/model/UserModelFacilities/CommentStatusModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/first-project-Erfan-fn/src/model/UserModelFacilities/PurchaseInvoiceModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/first-project-Erfan-fn/src/model/UserModelFacilities/ScoreModel.java" afterDir="false" />
+    <list default="true" id="5d55d8cf-cdcc-4781-bb75-c64970e48add" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/first-project-Erfan-fn/src/model/StuffKindModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/first-project-Erfan-fn/src/model/Stuff/StuffKindModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/first-project-Erfan-fn/src/model/UserModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/first-project-Erfan-fn/src/model/Roles/UserModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FirstProject-Phase1.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/AdminController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/ClientController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Roles/AdminModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Roles/ClientModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Roles/UserModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Stuff/BicycleKindModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Stuff/BicycleModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Stuff/CarModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Stuff/DigitalStuffModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Stuff/FlashMemoryModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Stuff/FoodModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Stuff/NoteBookModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Stuff/PenModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Stuff/PencilKindModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Stuff/PencilModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Stuff/PersonalComputerModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Stuff/SsdModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Stuff/StationeryModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Stuff/StorageEquipmentModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Stuff/StuffKindModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Stuff/StuffModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Stuff/VehicleModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/UserModelFacilities/CommentModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/UserModelFacilities/CommentStatusModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/UserModelFacilities/PurchaseInvoiceModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/UserModelFacilities/ScoreModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/AdminPanel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/ClientPanel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MainPanel.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +48,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="2NheLGSpOl1nhr82lGdnjWpavfw" />
+  <component name="ProjectId" id="2Q5x0Tpv8zoaLxjqXR07jjoRRBb" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="showExcludedFiles" value="false" />
@@ -48,37 +60,50 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/acer/IdeaProjects/first-project-Erfan-fn/first-project-Erfan-fn"
+    "git-widget-placeholder": "phase2",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/acer/IdeaProjects/first-project-phase2-Erfan-fn",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="first-project-phase2-Erfan-fn" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="first-project-phase2-Erfan-fn" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="5e43c1c0-72ea-4abf-a4c8-f38d9fc64ad3" name="Changes" comment="" />
-      <created>1680120730100</created>
+      <changelist id="5d55d8cf-cdcc-4781-bb75-c64970e48add" name="Changes" comment="" />
+      <created>1684657022763</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1680120730100</updated>
-      <workItem from="1680120731423" duration="33000" />
-      <workItem from="1680120831228" duration="8000" />
-      <workItem from="1680120854167" duration="911000" />
-      <workItem from="1680261294904" duration="81000" />
-      <workItem from="1680261395242" duration="87000" />
+      <updated>1684657022763</updated>
+      <workItem from="1684657024120" duration="2000" />
+      <workItem from="1684657388971" duration="66000" />
+      <workItem from="1684657486975" duration="38000" />
+      <workItem from="1684657534726" duration="166000" />
+      <workItem from="1684657717251" duration="546000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
 </project>

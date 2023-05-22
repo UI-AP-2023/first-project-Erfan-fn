@@ -4,9 +4,12 @@ import model.Roles.AdminModel;
 import model.Roles.ClientModel;
 import model.Stuff.*;
 import model.UserModelFacilities.CommentModel;
+import model.UserModelFacilities.DiscountModel;
 import model.UserModelFacilities.ScoreModel;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class AdminController {
     private static ArrayList<ClientModel> clientList=new ArrayList<>();
@@ -154,6 +157,8 @@ public int editStuffName(int stuffId,String name)
             }
         }
     return 0;}
+
+    //--------------------------------------------------------------------------------------
     public String acceptOrRejectRequests(int index,int orderNumber)
     {
      String string=AllRequestList.get(index);
@@ -223,6 +228,42 @@ public int editStuffName(int stuffId,String name)
 
     return"failed to accept or reject any request";}
 
-
+    //--------------------------------------------------------------------------------------
+   public String showClientsPurchaseNumber()
+   {
+       StringBuilder sb=new StringBuilder();
+       int [] purchases=new int[AdminController.getClientList().size()];
+       for (int i=0; i<AdminController.getClientList().size() ; i++)
+       {
+           for (int j=0; j<AdminController.getClientList().get(i).getClientInvoicesList().size() ;j++)
+           {
+               purchases[i]+=AdminController.getClientList().get(i).getClientInvoicesList().get(j).getPurchasedStuffsList().size();
+           }
+       }
+       for (int i=0; i<AdminController.getClientList().size(); i++)
+       {
+           sb.append("clientName:");
+           sb.append(AdminController.getClientList().get(i).getUserName());
+           sb.append("      clientPhoneNumber:");
+           sb.append(AdminController.getClientList().get(i).getPhoneNumber());
+           sb.append("      clientPurchaseNumber:");
+           sb.append(purchases[i]);
+       }
+       return sb.toString();
+   }
+    //--------------------------------------------------------------------------------------
+   public String giveClientsDiscount(String userName,String discountCategory)
+   {
+       String []array=discountCategory.split(" ");
+       for (ClientModel clientModel:AdminController.getClientList())
+       {
+           if (clientModel.getUserName().equals(userName))
+           {
+               clientModel.getClientDiscounts().add(new DiscountModel(Double.parseDouble(array[0]),array[1],Integer.parseInt(array[2])));
+           return "give Discount to " + userName+ " successfully done";
+           }
+       }
+       return "give Discount to " + userName+ " was not successful";
+   }
 
 }

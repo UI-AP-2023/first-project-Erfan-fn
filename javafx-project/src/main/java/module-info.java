@@ -4,5 +4,9 @@ module com.example.javafxproject {
 
 
     opens com.example.javafxproject to javafx.fxml;
+    opens com.example.model.Stuff to javafx.fxml;
+    opens com.example.model.UserModelFacilities to javafx.fxml;
     exports com.example.javafxproject;
+    exports com.example.model.Stuff;
+    exports com.example.model.UserModelFacilities;
 }

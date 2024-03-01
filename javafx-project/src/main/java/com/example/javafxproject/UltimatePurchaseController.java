@@ -18,6 +18,7 @@ import javafx.stage.Modality;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class UltimatePurchaseController implements Initializable {
@@ -41,20 +42,33 @@ public class UltimatePurchaseController implements Initializable {
     private HBox hBox_Discounts;
 
     @FXML
-    private TreeView<String> treeV_Prices;
+    private TreeView<String> treeV_Prices=new TreeView<String>();
 
     @FXML
-    private TextField txt_Discount;
+    private TextField txt_Discount=new TextField();
 
     static private int priceCounter=0;
+    static private TreeItem<String> main=new TreeItem<String>("Prices");
 
-    static private double [] price;
+    static private double [] price=new double[10];
+    public static String txt_DiscountsTemp;
+    public ArrayList<DiscountModel>clientDiscounts=new ArrayList<>();
+
     @FXML
     void applyDiscount(ActionEvent event) {
-        TreeItem<String> main=new TreeItem<String>("Prices");
+
+
+        treeV_Prices.setRoot(main);
+        txt_DiscountsTemp=txt_Discount.getText();
+
+        System.out.println("test: "+txt_Discount.getText());
         ClientController clientController=new ClientController();
         try {
-            clientController.ultimatePurchase(LoginPageController.clientName,1);
+            String result=clientController.ultimatePurchase(LoginPageController.clientName,1);
+            Alert alert=new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Purchase operation");
+            alert.setContentText(result);
+            alert.show();
         } catch (InsufficientBalance e) {
             Alert alert=new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Insufficient Balance");
@@ -68,6 +82,11 @@ public class UltimatePurchaseController implements Initializable {
         } catch (InvalidDiscount e) {
             Alert alert=new Alert(Alert.AlertType.ERROR);
             alert.setTitle("InvalidDiscount");
+            alert.setContentText(e.getMessage());
+            alert.show();
+        } catch (InterruptedException e) {
+            Alert alert=new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("InterruptedException");
             alert.setContentText(e.getMessage());
             alert.show();
         }
@@ -99,7 +118,7 @@ public class UltimatePurchaseController implements Initializable {
         try {
             String result=clientController.ultimatePurchase(LoginPageController.clientName,2);
             Alert alert=new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Purchase Success!!");
+            alert.setTitle("Purchase");
             alert.setContentText(result);
             alert.show();
             for(ClientModel clientModel1:AdminController.getClientList())
@@ -119,9 +138,16 @@ public class UltimatePurchaseController implements Initializable {
             alert.setTitle("InsufficientInventory");
             alert.setContentText(e.getMessage());
             alert.show();
-        } catch (InvalidDiscount e) {
+        } catch (InvalidDiscount  e) {
             Alert alert=new Alert(Alert.AlertType.ERROR);
             alert.setTitle("InvalidDiscount");
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
+        catch (InterruptedException e)
+        {
+            Alert alert=new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("InterruptedException");
             alert.setContentText(e.getMessage());
             alert.show();
         }
@@ -129,19 +155,28 @@ public class UltimatePurchaseController implements Initializable {
 
 
     //------------------------------------------------------------------------------------------------
-    public DiscountModel enterClientDiscounts()
+    public ArrayList<DiscountModel> enterClientDiscounts()
     {
-            String code= txt_Discount.getText();
+            String []codes= txt_DiscountsTemp.split("_");
             for (ClientModel clientModel:AdminController.getClientList()) {
 
                 if (clientModel.getUserName().equals(LoginPageController.clientName))
                 {
-                    for (DiscountModel discountModel:clientModel.getClientDiscounts())
+                    for (int i=0;i<codes.length;i++)
                     {
-                        if (discountModel.getDiscountCode().equals(code))
+                        for (DiscountModel discountModel:clientModel.getClientDiscounts())
                         {
-                            return discountModel;
+
+                            if (discountModel.getDiscountCode().equals(codes[i]))
+                            {
+                                System.out.println(discountModel.toString());
+                                clientDiscounts.add(discountModel);
+                            }
                         }
+                    }
+                    if (clientDiscounts.size()>0)
+                    {
+                        return clientDiscounts;
                     }
                     try {
                         throw new InvalidDiscount();
@@ -153,43 +188,25 @@ public class UltimatePurchaseController implements Initializable {
                     }
                 }
             }
-        return null;}
+        return clientDiscounts;}
         //------------------------------------------------------------------------------------------------
-        public int effectOfDiscount(double prePrice,double currentPrice)
-        {
-            TreeItem<String> main=new TreeItem<String>("Prices");
+        public void effectOfDiscount(double prePrice,double currentPrice) throws InterruptedException {
+
             TreeItem<String>item1=new TreeItem<String>("price"+priceCounter+" is "+prePrice);
             price[0]=prePrice;
             priceCounter++;
             TreeItem<String>item2=new TreeItem<String>("price"+priceCounter+" is "+currentPrice);
             price[priceCounter]=currentPrice;
+            System.out.println("current price1 is:  "+price[priceCounter]);
             main.getChildren().add(item1);
             main.getChildren().add(item2);
+            System.out.println("preprice is:"+prePrice+"     currentPrice is:"+currentPrice);
             treeV_Prices.refresh();
-            Alert alert=new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Continue or not??");
-            alert.setContentText("result of discount is available in the table fo you want to continue use the discount on not? (select ok or cancel");
-            alert.initModality(Modality.WINDOW_MODAL);
-            alert.getButtonTypes().clear();
-            alert.getButtonTypes().addAll(ButtonType.YES,ButtonType.NO);
-            alert.show();
-
-            int orderNumber=1;
-            if (alert.getResult().getButtonData().equals(ButtonBar.ButtonData.NO))
-            {
-                 orderNumber=2;
-            }
-            if (alert.getResult().getButtonData().equals(ButtonBar.ButtonData.YES))
-            {
-                 orderNumber=1;
-            }
-
-        return orderNumber; }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         treeV_Prices.setRoot(null);
-        TreeItem<String> main=new TreeItem<String>("Prices");
         treeV_Prices.setRoot(main);
         treeV_Prices.refresh();
     }

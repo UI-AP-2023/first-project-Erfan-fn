@@ -96,7 +96,7 @@ public class AdminPanel {
                 if(array[0].equals("help"))
                 {
                     System.out.println("admin orders list:  "+"1_addStuff(String stuffInformation)      "+"2_ShowRequestsList\n"+"3_acceptOrRejectRequests(int index,int orderNumber)       "+"4_showStuffList"+"\n5_editStuffName(int stuffId,String name)     "
-                            +"6_editStuffInventory(int stuffId,int inventory)\n"+"7_editStuffPrice(int stuffId,double price)        "+"8_removeStuff(int stuffId\n"+"9_ShowClientsPurchaseStatus      "+"10_GiveDiscountToClients(String name,String category(double discountPercent, LocalDate discountExpiration, int discountCapacity(seperated by space)))\n"+"11_help   "+"12_back ");
+                            +"6_editStuffInventory(int stuffId,int inventory)\n"+"7_editStuffPrice(int stuffId,double price)        "+"8_removeStuff(int stuffId\n"+"9_ShowClientsPurchaseStatus      "+"10_GiveDiscountToClients(String name,String category(double discountPercent, LocalDate discountExpiration, int discountCapacity(seperated by space)))\n"+"RemoveDiscountFromClient(username,discountCode)"+"     DiscountInterface(StuffId,double Percent)"+"   InterfaceDiscountRemove(StuffId)    "+"11_help   "+"12_back ");
                 }
                 if(array[0].equals("back"))
                 {
@@ -116,6 +116,32 @@ public class AdminPanel {
                     result=adminController.giveClientsDiscount(name,category);
                     System.out.println(result);
                 }
+                if (array[0].equals("RemoveDiscountFromClient"))
+                {
+                    System.out.println("Enter Client Name:");
+                    String userName=sc.nextLine();
+                    System.out.println("Enter DiscountCode:");
+                    String discountCode=sc.nextLine();
+                    String result=adminController.removeClientDiscount(userName,discountCode);
+                    System.out.println(result);
+                }
+                if (array[0].equals("DiscountInterface"))
+                {
+                    System.out.println("Enter Stuff Id:");
+                    int stuffId=sc.nextInt();
+                    System.out.println("Enter Discount Percent:");
+                    double discountPercent=sc.nextDouble();
+                    String result=adminController.someStuffDiscounts(stuffId,discountPercent);
+                    System.out.println(result);
+                }
+                if (array[0].equals("InterfaceDiscountRemove"))
+                {
+                    System.out.println("Enter Stuff Id:");
+                    int stuffId=sc.nextInt();
+                    String result=adminController.removeSomeStuffDiscount(stuffId);
+                    System.out.println(result);
+                }
+
             }
             catch (InputMismatchException e)
             {

@@ -34,7 +34,7 @@
                 <RowConstraints maxHeight="159.59998168945313" minHeight="10.0" prefHeight="138.40000000000003" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <ImageView fx:id="img_AStuff" fitHeight="218.0" fitWidth="238.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="img_AStuff" fitHeight="218.0" fitWidth="275.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                   <GridPane fx:id="gP_Information" prefHeight="189.0" prefWidth="459.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="272.39996337890625" minWidth="0.0" prefWidth="88.6" />

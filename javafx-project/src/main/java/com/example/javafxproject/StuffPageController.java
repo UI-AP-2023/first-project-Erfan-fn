@@ -103,9 +103,9 @@ public class StuffPageController implements Initializable {
                     tV_Comments.getItems().add(commentModel);
                 }
                 //------------------------------------------------------------------------------------------------
-                if (stuffModel instanceof BicycleModel)
+                if (stuffModel.getClass().getSimpleName().equals("BicycleModel"))
                 {
-                    img_AStuff.setImage(new Image("\"C:\\\\Users\\\\acer\\\\IdeaProjects\\\\first-project-phase2-Erfan-fn\\\\javafx-project\\\\src\\\\main\\\\resources\\\\com\\\\example\\\\javafxproject\\\\image\\\\Bicycle.jpg"));
+                    img_AStuff.setImage(new Image("\"C:\\Users\\acer\\IdeaProjects\\first-project-phase2-Erfan-fn\\javafx-project\\src\\main\\resources\\com\\example\\javafxproject\\image\\Bicycle.jpg"));
                 }
 
                 if (stuffModel.getClass().getSimpleName().equals("CarModel"))

@@ -6,11 +6,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import com.example.model.Roles.AdminModel;
 import com.example.model.Roles.ClientModel;
@@ -66,6 +65,10 @@ public class SeeDiscountsController implements Initializable {
         tC_Capacity.setCellValueFactory(new PropertyValueFactory<DiscountModel,Integer>("discountCapacity"));
         tC_Percent.setCellValueFactory(new PropertyValueFactory<DiscountModel,Double>("discountPercent"));
         tV_Discounts.getItems().clear();
+        TableView.TableViewSelectionModel selectionModel=tV_Discounts.getSelectionModel();
+        selectionModel.setSelectionMode(SelectionMode.SINGLE);
+
+
         for (ClientModel clientModel: AdminController.getClientList())
         {
             if (clientModel.getUserName().equals(LoginPageController.clientName))
@@ -77,5 +80,16 @@ public class SeeDiscountsController implements Initializable {
             }
         }
         tV_Discounts.refresh();
+    }
+
+    @FXML
+    void copyDiscountCode(KeyEvent event) {
+        TableView.TableViewSelectionModel selectionModel=tV_Discounts.getSelectionModel();
+        selectionModel.setSelectionMode(SelectionMode.SINGLE);
+        for (Object row: selectionModel.getSelectedItems())
+        {
+            System.out.println(((DiscountModel)row).getDiscountCode());
+        }
+        selectionModel.clearSelection();
     }
 }

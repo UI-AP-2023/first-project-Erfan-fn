@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="650.0" prefWidth="810.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxproject.UltimatePurchaseController">
    <children>
       <ImageView fitHeight="650.0" fitWidth="836.0">
@@ -29,7 +28,7 @@
                   <Font name="Segoe UI Light" size="15.0" />
                </font>
             </Button>
-            <TextField fx:id="txt_Discount" accessibleRole="BUTTON" alignment="CENTER" prefHeight="40.0" prefWidth="290.0" promptText="Enter Discount Code">
+            <TextField fx:id="txt_Discount" alignment="CENTER" prefHeight="40.0" prefWidth="290.0" promptText="Enter Discount/s Code(seperated by _ )">
                <font>
                   <Font name="Segoe UI Light" size="14.0" />
                </font>

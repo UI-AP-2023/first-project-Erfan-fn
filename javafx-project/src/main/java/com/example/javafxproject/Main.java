@@ -13,7 +13,7 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage primarystage) throws IOException {
-
+        makeStuff();
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("firstPage.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 900, 600);
         primarystage.setTitle("Main page");

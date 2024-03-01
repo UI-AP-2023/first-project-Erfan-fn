@@ -17,6 +17,7 @@ public class ClientModel extends UserModel {
         cart=new ArrayList<>();
         clientInvoicesList=new ArrayList<>();
         clientDiscounts=new ArrayList<>();
+        accountCredit=100000;
     }
 
     public ArrayList<PurchaseInvoiceModel> getClientInvoicesList() {

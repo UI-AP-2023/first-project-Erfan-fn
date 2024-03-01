@@ -35,7 +35,7 @@ public class AdminController {
          return 1;}
 
         if (array[1].equals("BicycleModel")) {
-            if (array[6].equals(BicycleKindModel.MOUNTAINOUS)) {
+            if (array[6].equals("BicycleKindModel.MOUNTAINOUS")) {
                 BicycleModel bicycleModel = new BicycleModel(array[2], Double.parseDouble(array[3]), Integer.parseInt(array[4]), array[5], BicycleKindModel.MOUNTAINOUS);
             AdminModel.getAdminModel().getStuffList().add(bicycleModel);
             }
@@ -265,4 +265,82 @@ public int editStuffName(int stuffId,String name)
    }
     //--------------------------------------------------------------------------------------
 
+    public String someStuffDiscounts(int stuffId,double discountPercent)
+    {
+        for (StuffModel stuffModel:AdminModel.getAdminModel().getStuffList())
+        {
+            if (stuffModel.getStuffId()==stuffId)
+            {
+                if (stuffModel instanceof PencilModel)
+                {
+                    ((PencilModel) stuffModel).setDiscountPercent(discountPercent);
+                    ((PencilModel)stuffModel).setDiscount(((PencilModel)stuffModel).getDiscountPercent());
+                    return "Pencil "+stuffModel.getStuffName()+" got discount";
+                }
+
+                if (stuffModel instanceof PenModel)
+                {
+                    ((PenModel) stuffModel).setDiscountPercent(discountPercent);
+                    ((PenModel)stuffModel).setDiscount(((PenModel)stuffModel).getDiscountPercent());
+                    return "Pen "+stuffModel.getStuffName()+" got discount";
+                }
+
+                if (stuffModel instanceof DigitalStuffModel)
+                {
+                    ((DigitalStuffModel) stuffModel).setDiscountPercent(discountPercent);
+                    ((DigitalStuffModel)stuffModel).setDiscount(((DigitalStuffModel)stuffModel).getDiscountPercent());
+                    return "DigitalStuff "+stuffModel.getStuffName()+" got discount";
+                }
+
+            }
+        }
+        return "something wrong with the discount!!";
+    }
+    //--------------------------------------------------------------------------------------
+    public String removeSomeStuffDiscount(int stuffId)
+    {
+        for (StuffModel stuffModel:AdminModel.getAdminModel().getStuffList()) {
+
+            if (stuffModel.getStuffId() == stuffId)
+            {
+                if (stuffModel instanceof PencilModel)
+                {
+                    stuffModel.setStuffPrice((stuffModel.getStuffPrice())/((100-((PencilModel)stuffModel).getDiscountPercent())/100));
+                    return "Pencil "+stuffModel.getStuffName()+" discount has been removed";
+                }
+
+                if (stuffModel instanceof PenModel)
+                {
+                    stuffModel.setStuffPrice((stuffModel.getStuffPrice())/((100-((PenModel)stuffModel).getDiscountPercent())/100));
+                    return "Pen "+stuffModel.getStuffName()+" discount has been removed";
+                }
+
+                if (stuffModel instanceof DigitalStuffModel)
+                {
+                    stuffModel.setStuffPrice((stuffModel.getStuffPrice())/((100-((DigitalStuffModel)stuffModel).getDiscountPercent())/100));
+                    return "DigitalStuffModel "+stuffModel.getStuffName()+" discount has been removed";
+                }
+            }
+        }
+    return "error in removing discounts";}
+    //--------------------------------------------------------------------------------------
+
+    public String  removeClientDiscount(String username,String discountCode)
+    {
+        for (ClientModel clientModel:AdminController.getClientList())
+        {
+            if (clientModel.getUserName().equals(username))
+            {
+                for (DiscountModel discountModel:clientModel.getClientDiscounts())
+                {
+                    if (discountModel.getDiscountCode().equals(discountCode))
+                    {
+                        clientModel.getClientDiscounts().remove(discountModel);
+                        return "Discount removed successfully";
+                    }
+                }
+            }
+        }
+        return "Discount not found!!";
+    }
 }

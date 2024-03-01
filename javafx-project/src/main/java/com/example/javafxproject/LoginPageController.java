@@ -98,7 +98,6 @@ public class LoginPageController {
             }
             else
             {
-                Main.makeStuff();
                 clientName=username;
                 FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("ClientPanelPage.fxml"));
                 Scene scene = new Scene(fxmlLoader.load(), 765, 555);

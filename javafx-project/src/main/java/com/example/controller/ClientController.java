@@ -11,11 +11,12 @@ import com.example.model.UserModelFacilities.PurchaseInvoiceModel;
 import com.example.model.UserModelFacilities.ScoreModel;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ClientController {
-    public String signUp(String userName, String email, String phoneNumber, String password) throws InvalidEmail, InvalidPhoneNumber {
+    public String signUp(String userName, String email, String phoneNumber, String password) throws InvalidEmail, InvalidPhoneNumber, InvalidPassword {
 
         Pattern pattern = Pattern.compile("^[a-zA-Z0-9._%+-]+@(gmail|yahoo)\\.com$");
         Matcher matcher = pattern.matcher(email);
@@ -51,6 +52,10 @@ public class ClientController {
                     " " + email + " " + phoneNumber + " " + password);
             return "SignUpRequest: " + userName +
                     " " + email + " " + phoneNumber + " " + password;
+        }
+        if (!matcher2.find() || !matcher20.find() || !matcher21.find() || !matcher22.find())
+        {
+            throw new InvalidPassword();
         }
         if (!matcher1.find()) {
             throw new InvalidPhoneNumber();
@@ -97,14 +102,23 @@ public class ClientController {
                         clientModel.setPassword(password);
                         return 1;
                     }
+                    else
+                    {
+                        return 0;
+                    }
                 }
             }
-        } else throw new InvalidPassword();
+            return 0;
+        }
+        if (!matcher2.find() && !matcher20.find() && !matcher21.find() && !matcher22.find())
+        {
+            throw new InvalidPassword();
+        }
         return 0;
     }
 
     public int editEmail(String userName, String email) throws InvalidEmail {
-        Pattern pattern = Pattern.compile("^\\D{5}(\\d{3})+(@gmail|@yahoo)\\.com$");
+        Pattern pattern = Pattern.compile("^[a-zA-Z0-9._%+-]+@(gmail|yahoo)\\.com$");
         Matcher matcher = pattern.matcher(email);
         if (matcher.find()) {
             for (ClientModel clientModel : AdminController.getClientList()) {
@@ -115,7 +129,12 @@ public class ClientController {
                     }
                 }
             }
-        } else throw new InvalidEmail();
+        }
+        else
+            if (!matcher.find())
+            {
+                throw new InvalidEmail();
+            }
         return 0;
     }
 
@@ -142,6 +161,14 @@ public class ClientController {
                 for (PurchaseInvoiceModel purchaseInvoiceModel : clientModel.getClientInvoicesList()) {
                     for (StuffModel stuffModel : purchaseInvoiceModel.getPurchasedStuffsList()) {
                         if (stuffModel.getStuffId() == stuffCode) {
+                            if (score>5)
+                            {
+                                score=5;
+                            }
+                            if (score<0)
+                            {
+                                score=0;
+                            }
                             ScoreModel scoreModel = new ScoreModel(clientModel, score, stuffModel);
                             AdminController.getAllScores().add(scoreModel);
                             for (ScoreModel scoreModel1 : AdminController.getAllScores()) {
@@ -236,7 +263,7 @@ public class ClientController {
                         CommentModel commentModel = new CommentModel(stuffCode, commentText, clientModel);
                         commentModel.setBuy(false);
                         AdminController.getAllRequestList().add("commentRequest: " + commentModel.toString());
-                        return "commentRequest " + commentModel.toString();
+                        return "commentRequest: " + commentModel.toString();
                     }
                 }
             }
@@ -244,7 +271,7 @@ public class ClientController {
         return "comment request failed";
     }
 
-    public String ultimatePurchase(String userName, int order) throws InsufficientBalance, InsufficientInventory, InvalidDiscount {
+    public String ultimatePurchase(String userName, int order) throws InsufficientBalance, InsufficientInventory, InvalidDiscount, InterruptedException {
         double sumOfStuffPrices = 0;
         for (ClientModel clientModel : AdminController.getClientList()) {
             if (clientModel.getUserName().equals(userName)) {
@@ -257,37 +284,23 @@ public class ClientController {
 
                     }
                 }
-                int counter=0;
-                do {
-                    counter++;
+
                     if (order == 1) {
                         UltimatePurchaseController ultimatePurchaseController=new UltimatePurchaseController();
-                        try {
-                            DiscountModel discountModel = ultimatePurchaseController.enterClientDiscounts();
-                            if (discountModel.getDiscountExpiration().isBefore(LocalDate.now()) || discountModel.getDiscountCapacity() == 0) {
-                                throw new InvalidDiscount();
-                            } else {
+                            ArrayList<DiscountModel> temp= ultimatePurchaseController.enterClientDiscounts();
+                            for (DiscountModel discountModel:temp)
+                            {
+                                if (discountModel.getDiscountExpiration().isBefore(LocalDate.now()) || discountModel.getDiscountCapacity() == 0) {
+                                    throw new InvalidDiscount();
+                                } else {
 
-                                double sumOfStuffPrices1 = sumOfStuffPrices - (sumOfStuffPrices * (discountModel.getDiscountPercent() / 100));
-                                discountModel.setDiscountCapacity(discountModel.getDiscountCapacity() - 1);
-                                int countinue=ultimatePurchaseController.effectOfDiscount(sumOfStuffPrices, sumOfStuffPrices1);
-                                sumOfStuffPrices = sumOfStuffPrices1;
-                                if (countinue == 2) {
-                                    break;
+                                    double sumOfStuffPrices1 = sumOfStuffPrices - (sumOfStuffPrices * (discountModel.getDiscountPercent() / 100));
+                                    discountModel.setDiscountCapacity(discountModel.getDiscountCapacity() - 1);
+                                    ultimatePurchaseController.effectOfDiscount(sumOfStuffPrices, sumOfStuffPrices1);
+                                    sumOfStuffPrices = sumOfStuffPrices1;
                                 }
                             }
-
-                        } catch (NullPointerException e) {
-
-                        }
-
                     }
-                    if (order==2)
-                    {
-                        break;
-                    }
-                } while (counter<=3);
-
 
                 if (clientModel.getAccountCredit() >= sumOfStuffPrices) {
                     PurchaseInvoiceModel purchaseInvoiceModel = new PurchaseInvoiceModel("1402/01/15", sumOfStuffPrices);

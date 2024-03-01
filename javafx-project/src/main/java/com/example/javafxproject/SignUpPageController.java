@@ -1,6 +1,7 @@
 package com.example.javafxproject;
 
 import com.example.Exceptions.InvalidEmail;
+import com.example.Exceptions.InvalidPassword;
 import com.example.Exceptions.InvalidPhoneNumber;
 import com.example.controller.ClientController;
 import javafx.event.ActionEvent;
@@ -65,7 +66,7 @@ public class SignUpPageController {
         result[0]="empty";
         try {
             result[0]= controller.signUp(userName,email,phoneNumber,password);
-        } catch (InvalidEmail | InvalidPhoneNumber e) {
+        } catch (InvalidEmail | InvalidPhoneNumber | InvalidPassword e) {
             Alert alert=new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Invalid Information");
             alert.setContentText(e.getMessage());
